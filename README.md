@@ -7,5 +7,5 @@ coffeepick-gui
 [![Codacy grade](https://img.shields.io/codacy/grade/fad9cc3608ca406eb6ba8c95128d6a9d.png?style=flat-square)](https://www.codacy.com/app/github_79/coffeepick-gui)
 [![Codecov](https://img.shields.io/codecov/c/github/io7m/coffeepick-gui.png?style=flat-square)](https://codecov.io/gh/io7m/coffeepick-gui)
 
-![gui](./src/site/resources/coffeepick-gui.jpg?raw=true)
+![coffeepick-gui](./src/site/resources/coffeepick-gui.jpg?raw=true)
 
