@@ -28,7 +28,7 @@
     <module>com.io7m.coffeepick.gui.controller</module>
     <module>com.io7m.coffeepick.gui.properties</module>
     <module>com.io7m.coffeepick.gui.filechooser.api</module>
-  </modules>c
+  </modules>
 
   <properties>
     <com.codacy.id>fad9cc3608ca406eb6ba8c95128d6a9d</com.codacy.id>
