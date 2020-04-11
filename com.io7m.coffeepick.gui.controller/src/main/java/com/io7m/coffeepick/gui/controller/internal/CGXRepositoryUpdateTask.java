@@ -68,6 +68,7 @@ public final class CGXRepositoryUpdateTask extends CGXAbstractTask<Void>
 
     try {
       this.client.repositoryUpdate(this.repositoryURI).get();
+      this.controller.setCatalog(this.client.catalogSearchAll().get());
       return null;
     } finally {
       subscription.dispose();

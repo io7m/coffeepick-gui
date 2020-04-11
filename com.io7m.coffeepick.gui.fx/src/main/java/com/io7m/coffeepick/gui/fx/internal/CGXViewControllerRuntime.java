@@ -55,7 +55,6 @@ public final class CGXViewControllerRuntime
   private final ObservableList<RuntimeDescription> runtimes;
   private final SimpleIntegerProperty runtimeIndex;
 
-  @FXML private Button buttonDownload;
   @FXML private Button buttonDownloadAll;
   @FXML private Button buttonNext;
   @FXML private Button buttonPrevious;
@@ -166,7 +165,6 @@ public final class CGXViewControllerRuntime
     final boolean isRunning =
       this.controller.taskRunning().value().booleanValue();
 
-    this.buttonDownload.setDisable(isRunning);
     this.buttonDownloadAll.setDisable(isRunning);
   }
 
@@ -222,18 +220,6 @@ public final class CGXViewControllerRuntime
         this.icon.setImage(this.imageJDK);
         break;
     }
-  }
-
-  @FXML
-  private void onButtonDownloadSelected()
-  {
-    final var index = this.runtimeIndex.get();
-    if (index >= this.runtimes.size() || index < 0) {
-      return;
-    }
-
-    final var runtime = this.runtimes.get(index);
-    this.controller.catalogDownload(runtime.id());
   }
 
   @FXML

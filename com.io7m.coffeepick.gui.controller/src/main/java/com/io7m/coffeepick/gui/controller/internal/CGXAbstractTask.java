@@ -50,7 +50,9 @@ public abstract class CGXAbstractTask<T>
   public final Throwable exception()
   {
     try {
-      this.future.get();
+      if (this.future.isCompletedExceptionally()) {
+        this.future.get();
+      }
       return null;
     } catch (final ExecutionException e) {
       return e.getCause();

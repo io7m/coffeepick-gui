@@ -167,9 +167,7 @@
             <HBox fx:id="catalogButtons" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" visible="false">
                <children>
                   <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="buttonDownload" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onButtonDownloadSelected" prefHeight="32.0" prefWidth="128.0" text="%ui.details.downloadOne" />
-                  <Region maxWidth="-Infinity" minWidth="-Infinity" prefWidth="8.0" />
-                  <Button fx:id="buttonDownloadAll" defaultButton="true" disable="true" layoutX="490.0" layoutY="10.0" mnemonicParsing="false" onAction="#onButtonDownloadAllSelected" prefHeight="32.0" prefWidth="128.0" text="%ui.details.downloadAll" />
+                  <Button fx:id="buttonDownloadAll" defaultButton="true" disable="true" layoutX="490.0" layoutY="10.0" mnemonicParsing="false" onAction="#onButtonDownloadAllSelected" prefHeight="32.0" prefWidth="128.0" text="%ui.details.download" />
                </children>
             </HBox>
             <HBox fx:id="inventoryButtons" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" visible="false">
