@@ -15,24 +15,12 @@
  */
 
 /**
- * CoffeePick GUI (JavaFX main application)
+ * Directory service API.
  */
 
-module com.io7m.coffeepick.gui.main
-{
-  requires com.io7m.coffeepick.client.vanilla;
-  requires com.io7m.coffeepick.gui.controller;
-  requires com.io7m.coffeepick.gui.directories.api;
-  requires com.io7m.coffeepick.gui.filechooser.api;
-  requires com.io7m.coffeepick.gui.fx;
-  requires com.io7m.coffeepick.gui.preferences;
-  requires com.io7m.coffeepick.gui.services.api;
-  requires com.io7m.jade.api;
-  requires com.io7m.jwheatsheaf.api;
-  requires com.io7m.jwheatsheaf.ui;
-  requires javafx.fxml;
-  requires javafx.graphics;
-  requires org.slf4j;
+@Export
+@Version("1.0.0")
+package com.io7m.coffeepick.gui.directories.api;
 
-  exports com.io7m.coffeepick.gui.main;
-}
+import org.osgi.annotation.bundle.Export;
+import org.osgi.annotation.versioning.Version;

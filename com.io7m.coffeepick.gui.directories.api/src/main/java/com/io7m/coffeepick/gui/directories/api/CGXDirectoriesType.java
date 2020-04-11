@@ -14,25 +14,12 @@
  * IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-/**
- * CoffeePick GUI (JavaFX main application)
- */
+package com.io7m.coffeepick.gui.directories.api;
 
-module com.io7m.coffeepick.gui.main
+import com.io7m.coffeepick.gui.services.api.CGXServiceType;
+import com.io7m.jade.api.ApplicationDirectoriesType;
+
+public interface CGXDirectoriesType extends CGXServiceType
 {
-  requires com.io7m.coffeepick.client.vanilla;
-  requires com.io7m.coffeepick.gui.controller;
-  requires com.io7m.coffeepick.gui.directories.api;
-  requires com.io7m.coffeepick.gui.filechooser.api;
-  requires com.io7m.coffeepick.gui.fx;
-  requires com.io7m.coffeepick.gui.preferences;
-  requires com.io7m.coffeepick.gui.services.api;
-  requires com.io7m.jade.api;
-  requires com.io7m.jwheatsheaf.api;
-  requires com.io7m.jwheatsheaf.ui;
-  requires javafx.fxml;
-  requires javafx.graphics;
-  requires org.slf4j;
-
-  exports com.io7m.coffeepick.gui.main;
+  ApplicationDirectoriesType directories();
 }

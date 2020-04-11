@@ -21,7 +21,9 @@ module com.io7m.coffeepick.gui.fx
 
   requires com.io7m.coffeepick.client.api;
   requires com.io7m.coffeepick.gui.controller;
+  requires com.io7m.coffeepick.gui.directories.api;
   requires com.io7m.coffeepick.gui.filechooser.api;
+  requires com.io7m.coffeepick.gui.preferences;
   requires com.io7m.coffeepick.gui.properties;
   requires com.io7m.coffeepick.gui.services.api;
   requires com.io7m.coffeepick.repository.spi;

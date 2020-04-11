@@ -19,7 +19,10 @@ package com.io7m.coffeepick.gui.main;
 import com.io7m.coffeepick.client.vanilla.CoffeePickClients;
 import com.io7m.coffeepick.gui.controller.CGXController;
 import com.io7m.coffeepick.gui.controller.CGXControllerType;
+import com.io7m.coffeepick.gui.directories.api.CGXDirectoriesType;
 import com.io7m.coffeepick.gui.filechooser.api.CGXFileChoosersType;
+import com.io7m.coffeepick.gui.preferences.CGXPreferencesController;
+import com.io7m.coffeepick.gui.preferences.CGXPreferencesControllerType;
 import com.io7m.coffeepick.gui.services.api.CGXServiceDirectory;
 import com.io7m.coffeepick.gui.services.api.CGXServiceDirectoryType;
 import com.io7m.jade.api.ApplicationDirectories;
@@ -44,6 +47,13 @@ public final class MainServices
       );
 
     final var services = new CGXServiceDirectory();
+    final var preferences =
+      CGXPreferencesController.create(
+        directories.configurationDirectory().resolve("preferences.xml"),
+        directories.configurationDirectory().resolve("preferences.xml.tmp")
+      );
+    services.register(CGXPreferencesControllerType.class, preferences);
+    services.register(CGXDirectoriesType.class, () -> directories);
 
     final var clients = CoffeePickClients.create();
     final var controller = CGXController.create(directories, clients);

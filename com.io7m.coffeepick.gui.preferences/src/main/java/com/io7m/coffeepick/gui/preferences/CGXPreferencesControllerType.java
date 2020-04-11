@@ -14,25 +14,33 @@
  * IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-/**
- * CoffeePick GUI (JavaFX main application)
- */
+package com.io7m.coffeepick.gui.preferences;
 
-module com.io7m.coffeepick.gui.main
+import com.io7m.coffeepick.gui.properties.PropertyReadableType;
+import com.io7m.coffeepick.gui.services.api.CGXServiceType;
+
+import java.io.Closeable;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
+
+public interface CGXPreferencesControllerType extends CGXServiceType, Closeable
 {
-  requires com.io7m.coffeepick.client.vanilla;
-  requires com.io7m.coffeepick.gui.controller;
-  requires com.io7m.coffeepick.gui.directories.api;
-  requires com.io7m.coffeepick.gui.filechooser.api;
-  requires com.io7m.coffeepick.gui.fx;
-  requires com.io7m.coffeepick.gui.preferences;
-  requires com.io7m.coffeepick.gui.services.api;
-  requires com.io7m.jade.api;
-  requires com.io7m.jwheatsheaf.api;
-  requires com.io7m.jwheatsheaf.ui;
-  requires javafx.fxml;
-  requires javafx.graphics;
-  requires org.slf4j;
+  /**
+   * @return The current preferences values
+   */
 
-  exports com.io7m.coffeepick.gui.main;
+  PropertyReadableType<CGXPreferences> preferences();
+
+  /**
+   * Update the current preferences using the given function, and schedule
+   * a preferences update on a background thread.
+   *
+   * @param updater The updater function
+   *
+   * @return A future representing the I/O operation
+   */
+
+  CompletableFuture<?> update(
+    Function<CGXPreferences, CGXPreferences> updater
+  );
 }

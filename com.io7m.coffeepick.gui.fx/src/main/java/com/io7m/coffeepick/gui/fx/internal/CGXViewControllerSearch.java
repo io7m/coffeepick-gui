@@ -28,7 +28,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -42,7 +41,7 @@ import java.util.ResourceBundle;
 import java.util.function.Function;
 
 public final class CGXViewControllerSearch
-  implements CGXViewControllerType, Initializable
+  implements CGXViewControllerType
 {
   private final CGXServiceDirectoryType services;
   private final CGXUIStringsType strings;

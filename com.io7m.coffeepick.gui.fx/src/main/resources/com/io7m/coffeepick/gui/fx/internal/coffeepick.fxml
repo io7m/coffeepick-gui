@@ -8,6 +8,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -24,6 +25,8 @@
       <menus>
         <Menu mnemonicParsing="false" text="%ui.menu.file">
           <items>
+                  <MenuItem mnemonicParsing="false" onAction="#onMenuPreferencesSelected" text="%ui.menu.file.preferences" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" onAction="#onMenuQuitSelected" text="%ui.menu.file.quit">
               <accelerator>
                 <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
@@ -37,7 +40,7 @@
                </items></Menu>
       </menus>
     </MenuBar>
-    <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0">
+    <TabPane fx:id="mainTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0">
       <tabs>
         <Tab text="%ui.tab.catalog">
           <content>
@@ -126,6 +129,11 @@
             <Tab text="%ui.tab.repositories">
               <content>
                 <fx:include fx:id="repositories" source="repositories.fxml" />
+              </content>
+            </Tab>
+            <Tab fx:id="debugTab" text="%ui.tab.debug">
+              <content>
+                <fx:include fx:id="debug" source="debug.fxml" />
               </content>
             </Tab>
       </tabs>

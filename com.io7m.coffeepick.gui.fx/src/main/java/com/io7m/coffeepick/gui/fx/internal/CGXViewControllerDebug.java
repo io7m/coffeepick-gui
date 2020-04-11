@@ -16,47 +16,43 @@
 
 package com.io7m.coffeepick.gui.fx.internal;
 
+import com.io7m.coffeepick.gui.controller.CGXControllerType;
 import com.io7m.coffeepick.gui.fx.CGXViewControllerFactoryType;
 import com.io7m.coffeepick.gui.services.api.CGXServiceDirectoryType;
 import javafx.fxml.FXML;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public final class CGXViewControllerAbout implements CGXViewControllerType
+public final class CGXViewControllerDebug implements CGXViewControllerType
 {
   private final CGXServiceDirectoryType services;
+  private final CGXControllerType controller;
 
-  @FXML private Label applicationField;
-  @FXML private Hyperlink linkField;
+  @FXML private TextField failTimeField;
 
-  public CGXViewControllerAbout(
+  public CGXViewControllerDebug(
     final CGXViewControllerFactoryType inControllers,
     final CGXServiceDirectoryType inServices)
   {
     this.services =
       Objects.requireNonNull(inServices, "inServices");
+    this.controller =
+      inServices.requireService(CGXControllerType.class);
   }
 
-  private static String applicationName()
+  @FXML
+  private void onFailSelected()
   {
-    var appName = "com.io7m.coffeepick.gui";
-    var appVersion = "0.0.0";
-    final var pack = CGXViewControllerAbout.class.getPackage();
-    if (pack != null) {
-      final var title = pack.getImplementationTitle();
-      if (title != null) {
-        appName = title;
-      }
-      final var version = pack.getImplementationVersion();
-      if (version != null) {
-        appVersion = version;
-      }
-    }
-    return String.format("%s %s", appName, appVersion);
+    final var time =
+      Math.min(
+        Long.parseUnsignedLong(this.failTimeField.getText()),
+        10L
+      );
+
+    this.controller.debugFail(time);
   }
 
   @Override
@@ -64,6 +60,6 @@ public final class CGXViewControllerAbout implements CGXViewControllerType
     final URL location,
     final ResourceBundle resources)
   {
-    this.applicationField.setText(applicationName());
+
   }
 }

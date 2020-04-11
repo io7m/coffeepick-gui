@@ -25,7 +25,6 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
@@ -41,7 +40,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public final class CGXViewControllerRepositories
-  implements CGXViewControllerType, Initializable
+  implements CGXViewControllerType
 {
   private final CGXControllerType controller;
   private final CGXServiceDirectoryType services;

@@ -31,7 +31,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-public interface CGXControllerType extends Closeable, CGXServiceType
+public interface CGXControllerType
+  extends Closeable, CGXServiceType, CGXControllerDebugType
 {
   PropertyReadableType<Map<String, RuntimeDescription>> catalog();
 

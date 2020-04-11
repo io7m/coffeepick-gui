@@ -26,6 +26,7 @@ import com.io7m.coffeepick.gui.controller.internal.CGXControllerInternalType;
 import com.io7m.coffeepick.gui.controller.internal.CGXControllerStrings;
 import com.io7m.coffeepick.gui.controller.internal.CGXControllerStringsType;
 import com.io7m.coffeepick.gui.controller.internal.CGXControllerTaskInternalType;
+import com.io7m.coffeepick.gui.controller.internal.CGXDebugFailTask;
 import com.io7m.coffeepick.gui.controller.internal.CGXInventoryDeleteTask;
 import com.io7m.coffeepick.gui.controller.internal.CGXInventoryUnpackTask;
 import com.io7m.coffeepick.gui.controller.internal.CGXRepositoryUpdateAllTask;
@@ -363,6 +364,19 @@ public final class CGXController implements CGXControllerType
     return String.format(
       "[CGXController 0x%s]",
       Integer.toUnsignedString(System.identityHashCode(this), 16)
+    );
+  }
+
+  @Override
+  public CompletableFuture<?> debugFail(final long time)
+  {
+    return this.submitTask(
+      (CompletableFuture<Void> future) ->
+        new CGXDebugFailTask(
+          this.internal,
+          future,
+          time
+        )
     );
   }
 

@@ -29,6 +29,8 @@
     <module>com.io7m.coffeepick.gui.properties</module>
     <module>com.io7m.coffeepick.gui.filechooser.api</module>
     <module>com.io7m.coffeepick.gui.tests</module>
+    <module>com.io7m.coffeepick.gui.preferences</module>
+    <module>com.io7m.coffeepick.gui.directories.api</module>
   </modules>
 
   <properties>

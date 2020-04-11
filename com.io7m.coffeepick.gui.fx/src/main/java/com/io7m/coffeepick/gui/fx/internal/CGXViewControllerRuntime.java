@@ -28,7 +28,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -46,7 +45,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public final class CGXViewControllerRuntime
-  implements CGXViewControllerType, Initializable
+  implements CGXViewControllerType
 {
   private final CGXControllerType controller;
   private final CGXServiceDirectoryType services;

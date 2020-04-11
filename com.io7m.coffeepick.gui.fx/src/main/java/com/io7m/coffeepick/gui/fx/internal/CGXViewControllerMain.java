@@ -25,6 +25,8 @@ import com.io7m.coffeepick.gui.controller.CGXControllerEventTaskStarted;
 import com.io7m.coffeepick.gui.controller.CGXControllerType;
 import com.io7m.coffeepick.gui.filechooser.api.CGXFileChoosersType;
 import com.io7m.coffeepick.gui.fx.CGXViewControllerFactoryType;
+import com.io7m.coffeepick.gui.preferences.CGXPreferences;
+import com.io7m.coffeepick.gui.preferences.CGXPreferencesControllerType;
 import com.io7m.coffeepick.gui.services.api.CGXServiceDirectoryType;
 import com.io7m.coffeepick.runtime.RuntimeDescription;
 import com.io7m.coffeepick.runtime.RuntimeDescriptionType;
@@ -37,7 +39,6 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -46,6 +47,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
@@ -66,9 +69,10 @@ import static com.io7m.coffeepick.gui.fx.internal.CGXViewControllerRuntimeContex
 import static com.io7m.coffeepick.gui.fx.internal.CGXViewControllerRuntimeContext.CONTEXT_INVENTORY;
 
 public final class CGXViewControllerMain
-  implements CGXViewControllerType, Initializable
+  implements CGXViewControllerType
 {
   private final CGXControllerType controller;
+  private final CGXPreferencesControllerType preferences;
   private final CGXServiceDirectoryType services;
   private final CGXUIStringsType strings;
   private final CGXViewControllerFactoryType viewControllers;
@@ -88,6 +92,8 @@ public final class CGXViewControllerMain
   @FXML private Pane inventorySearch;
   @FXML private Pane mainPane;
   @FXML private ProgressIndicator progressIndicator;
+  @FXML private Tab debugTab;
+  @FXML private TabPane mainTabPane;
   @FXML private TableView<RuntimeDescription> catalogTable;
   @FXML private TableView<RuntimeDescription> inventoryTable;
 
@@ -106,6 +112,9 @@ public final class CGXViewControllerMain
       inServices.requireService(CGXControllerType.class);
     this.fileChoosers =
       inServices.requireService(CGXFileChoosersType.class).fileChoosers();
+    this.preferences =
+      inServices.requireService(CGXPreferencesControllerType.class);
+
     this.strings =
       CGXUIStrings.of(CGXUIStrings.getResourceBundle());
     this.subscriptions =
@@ -288,6 +297,32 @@ public final class CGXViewControllerMain
   }
 
   @FXML
+  private void onMenuPreferencesSelected()
+    throws IOException
+  {
+    final var mainXML =
+      CGXViewControllerMain.class.getResource("preferences.fxml");
+
+    final var loader =
+      new FXMLLoader(
+        mainXML,
+        CGXUIStrings.getResourceBundle(),
+        null,
+        this.viewControllers::createController
+      );
+
+    final Stage stage = new Stage();
+    final Pane pane = loader.load();
+    pane.getStylesheets().add(CGXCSS.stylesheet());
+
+    stage.setMinWidth(320.0);
+    stage.setMinHeight(240.0);
+    stage.setScene(new Scene(pane));
+    stage.titleProperty().setValue("Preferences…");
+    stage.show();
+  }
+
+  @FXML
   private void onMenuHelpAboutSelected()
     throws IOException
   {
@@ -400,6 +435,27 @@ public final class CGXViewControllerMain
         .observable()
         .subscribe(data -> this.onCatalogMapChanged())
     );
+
+    this.subscriptions.add(
+      this.preferences.preferences()
+        .observable()
+        .subscribe(this::onPreferencesUpdated)
+    );
+  }
+
+  private void onPreferencesUpdated(
+    final CGXPreferences newPreferences)
+  {
+    Platform.runLater(() -> {
+      final var tabs = this.mainTabPane.getTabs();
+      if (newPreferences.debug().isDebugEnabled()) {
+        if (!tabs.contains(this.debugTab)) {
+          tabs.add(this.debugTab);
+        }
+      } else {
+        tabs.remove(this.debugTab);
+      }
+    });
   }
 
   private void onCatalogMapChanged()

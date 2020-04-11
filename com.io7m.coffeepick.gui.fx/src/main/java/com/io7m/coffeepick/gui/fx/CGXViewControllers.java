@@ -17,7 +17,9 @@
 package com.io7m.coffeepick.gui.fx;
 
 import com.io7m.coffeepick.gui.fx.internal.CGXViewControllerAbout;
+import com.io7m.coffeepick.gui.fx.internal.CGXViewControllerDebug;
 import com.io7m.coffeepick.gui.fx.internal.CGXViewControllerMain;
+import com.io7m.coffeepick.gui.fx.internal.CGXViewControllerPreferences;
 import com.io7m.coffeepick.gui.fx.internal.CGXViewControllerRepositories;
 import com.io7m.coffeepick.gui.fx.internal.CGXViewControllerRuntime;
 import com.io7m.coffeepick.gui.fx.internal.CGXViewControllerSearch;
@@ -81,6 +83,14 @@ public final class CGXViewControllers implements CGXViewControllerFactoryType
       Map.entry(
         CGXViewControllerAbout.class.getCanonicalName(),
         () -> new CGXViewControllerAbout(factory, inServices)
+      ),
+      Map.entry(
+        CGXViewControllerDebug.class.getCanonicalName(),
+        () -> new CGXViewControllerDebug(factory, inServices)
+      ),
+      Map.entry(
+        CGXViewControllerPreferences.class.getCanonicalName(),
+        () -> new CGXViewControllerPreferences(factory, inServices)
       )
     );
   }
