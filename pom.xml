@@ -28,10 +28,10 @@
     <module>com.io7m.coffeepick.gui.controller</module>
     <module>com.io7m.coffeepick.gui.properties</module>
     <module>com.io7m.coffeepick.gui.filechooser.api</module>
-  </modules>
+  </modules>c
 
   <properties>
-    <com.codacy.id></com.codacy.id>
+    <com.codacy.id>fad9cc3608ca406eb6ba8c95128d6a9d</com.codacy.id>
     <com.io7m.coffeepick.version>0.2.0</com.io7m.coffeepick.version>
     <com.io7m.jade.version>1.0.1</com.io7m.jade.version>
     <com.io7m.jwheatsheaf.version>2.0.1</com.io7m.jwheatsheaf.version>
