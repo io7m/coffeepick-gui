@@ -1,4 +1,4 @@
-gui
+coffeepick-gui
 ===
 
 [![Travis](https://img.shields.io/travis/io7m/coffeepick-gui.png?style=flat-square)](https://travis-ci.org/io7m/coffeepick-gui)
