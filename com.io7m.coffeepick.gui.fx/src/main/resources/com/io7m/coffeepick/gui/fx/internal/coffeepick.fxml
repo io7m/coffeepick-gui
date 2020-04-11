@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="mainPane" prefHeight="768.0" prefWidth="1024.0" stylesheets="@coffeepick.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.io7m.coffeepick.gui.fx.internal.CGXViewControllerMain">
+  <children>
+    <MenuBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <menus>
+        <Menu mnemonicParsing="false" text="%ui.menu.file">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#onMenuQuitSelected" text="%ui.menu.file.quit">
+              <accelerator>
+                <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
+          </items>
+        </Menu>
+            <Menu mnemonicParsing="false" text="%ui.menu.help">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#onMenuHelpAboutSelected" text="%ui.menu.help.about" />
+               </items></Menu>
+      </menus>
+    </MenuBar>
+    <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0">
+      <tabs>
+        <Tab text="%ui.tab.catalog">
+          <content>
+            <VBox minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <TableView fx:id="catalogTable" editable="true" prefHeight="200.0" prefWidth="200.0" styleClass="cgRuntimeTable" VBox.vgrow="ALWAYS">
+                  <placeholder>
+                    <Label text="%ui.table.noMatches" />
+                  </placeholder>
+                  <columns>
+                    <TableColumn maxWidth="22.0" minWidth="22.0" prefWidth="22.0" resizable="false" />
+                    <TableColumn editable="false" maxWidth="1.7976931348623157E308" minWidth="64.0" prefWidth="128.0" text="%ui.table.id" />
+                    <TableColumn editable="false" maxWidth="80.0" minWidth="80.0" sortable="false" text="%ui.table.platform" />
+                    <TableColumn editable="false" maxWidth="80.0" minWidth="80.0" sortable="false" text="%ui.table.architecture" />
+                    <TableColumn editable="false" maxWidth="112.0" minWidth="112.0" prefWidth="112.0" sortable="false" text="%ui.table.version" />
+                    <TableColumn editable="false" maxWidth="80.0" minWidth="80.0" sortable="false" text="%ui.table.vm" />
+                              <TableColumn editable="false" maxWidth="1.7976931348623157E308" minWidth="160.0" prefWidth="160.0" sortable="false" text="%ui.table.repository" />
+                  </columns>
+                  <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                  </columnResizePolicy>
+                </TableView>
+                        <Region layoutX="18.0" layoutY="518.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="8.0" />
+                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0">
+                           <children>
+                              <Button fx:id="catalogDetailsButton" disable="true" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#onCatalogDetailsSelected" prefHeight="32.0" prefWidth="138.0" text="%ui.catalog.details" />
+                              <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <Label fx:id="catalogMatchLabel" alignment="CENTER_RIGHT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" text="%ui.runtimesCount" textAlignment="RIGHT" />
+                           </children>
+                        </HBox>
+                        <Region layoutX="18.0" layoutY="518.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="8.0" />
+                <fx:include fx:id="catalogSearch" source="search.fxml" HBox.hgrow="ALWAYS" VBox.vgrow="NEVER" />
+              </children>
+              <padding>
+                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+              </padding>
+            </VBox>
+          </content>
+        </Tab>
+        <Tab text="%ui.tab.inventory">
+          <content>
+            <VBox minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="inventoryTable" editable="true" prefHeight="200.0" prefWidth="200.0" styleClass="cgRuntimeTable" VBox.vgrow="ALWAYS">
+                           <placeholder>
+                              <Label text="%ui.table.noMatches" />
+                           </placeholder>
+                           <columns>
+                              <TableColumn maxWidth="22.0" minWidth="22.0" prefWidth="22.0" resizable="false" />
+                              <TableColumn editable="false" maxWidth="1.7976931348623157E308" minWidth="64.0" prefWidth="128.0" text="%ui.table.id" />
+                              <TableColumn editable="false" maxWidth="80.0" minWidth="80.0" sortable="false" text="%ui.table.platform" />
+                              <TableColumn editable="false" maxWidth="80.0" minWidth="80.0" sortable="false" text="%ui.table.architecture" />
+                              <TableColumn editable="false" maxWidth="112.0" minWidth="112.0" prefWidth="112.0" sortable="false" text="%ui.table.version" />
+                              <TableColumn editable="false" maxWidth="80.0" minWidth="80.0" sortable="false" text="%ui.table.vm" />
+                              <TableColumn editable="false" maxWidth="1.7976931348623157E308" minWidth="160.0" prefWidth="160.0" sortable="false" text="%ui.table.repository" />
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <Region maxHeight="-Infinity" minHeight="-Infinity" prefHeight="8.0" />
+                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0">
+                           <children>
+                              <Button fx:id="inventoryDetailsButton" disable="true" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#onInventoryDetailsSelected" prefHeight="32.0" prefWidth="138.0" text="%ui.inventory.details" />
+                              <Region layoutX="286.0" layoutY="10.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="8.0" />
+                              <Button fx:id="inventoryDeleteButton" disable="true" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#onInventoryDeleteSelected" prefHeight="32.0" prefWidth="138.0" text="%ui.inventory.delete" />
+                              <Region layoutX="148.0" layoutY="10.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="8.0" />
+                              <Button fx:id="inventoryUnpackButton" disable="true" layoutX="156.0" layoutY="10.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#onInventoryUnpackSelected" prefHeight="32.0" prefWidth="138.0" text="%ui.inventory.unpack" />
+                              <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <Label fx:id="inventoryMatchLabel" alignment="CENTER_RIGHT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" text="%ui.runtimesCount" textAlignment="RIGHT" />
+                           </children>
+                        </HBox>
+                        <Region maxHeight="-Infinity" minHeight="-Infinity" prefHeight="8.0" />
+                        <fx:include fx:id="inventorySearch" source="search.fxml" />
+                     </children>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding></VBox>
+          </content>
+        </Tab>
+        <Tab text="%ui.tab.tasks">
+          <content>
+            <fx:include fx:id="tasks" source="tasks.fxml" VBox.vgrow="NEVER" />
+          </content>
+        </Tab>
+            <Tab text="%ui.tab.repositories">
+              <content>
+                <fx:include fx:id="repositories" source="repositories.fxml" />
+              </content>
+            </Tab>
+      </tabs>
+    </TabPane>
+    <Separator AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+    <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <children>
+        <Region maxWidth="-Infinity" minWidth="-Infinity" prefWidth="8.0" />
+        <ProgressIndicator fx:id="progressIndicator" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="16.0" />
+        <Region layoutX="10.0" layoutY="10.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="8.0" />
+        <Label fx:id="progressLabel" maxWidth="1.7976931348623157E308" text="Label" HBox.hgrow="ALWAYS" />
+        <Region layoutX="34.0" layoutY="10.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="8.0" />
+      </children>
+    </HBox>
+  </children>
+</AnchorPane>
