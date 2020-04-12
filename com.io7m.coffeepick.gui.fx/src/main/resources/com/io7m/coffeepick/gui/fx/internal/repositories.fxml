@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.io7m.coffeepick.gui.fx.internal.CGXViewControllerRepositories">
+   <padding>
+      <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+   </padding>
+   <children>
+      <ComboBox fx:id="repositoryComboBox" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="32.0" />
+      <Region layoutX="18.0" layoutY="178.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="16.0" />
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Region layoutX="138.0" layoutY="10.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="8.0" />
+            <VBox>
+               <children>
+                  <ImageView fx:id="brandingImage" fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </VBox>
+            <Region maxWidth="-Infinity" minWidth="-Infinity" prefWidth="16.0" />
+            <VBox HBox.hgrow="ALWAYS">
+               <children>
+                  <Label fx:id="brandingTitleField" styleClass="cgRepositoryBrandingTitle" text="%ui.placeholder" />
+                  <Region maxHeight="-Infinity" minHeight="-Infinity" prefHeight="8.0" />
+                  <Label fx:id="brandingSubtitleField" styleClass="cgRepositoryBrandingSubtitle" text="%ui.placeholder" />
+                  <Region layoutX="10.0" layoutY="40.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="8.0" />
+                  <Hyperlink fx:id="brandingSiteField" text="Hyperlink" />
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+            <Region layoutX="10.0" layoutY="10.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="16.0" />
+         </children>
+      </HBox>
+      <Region layoutX="18.0" layoutY="50.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="16.0" />
+      <Separator prefWidth="200.0" />
+      <Region layoutX="18.0" layoutY="194.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="16.0" />
+      <GridPane>
+        <columnConstraints>
+          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="128.0" minWidth="128.0" prefWidth="128.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="128.0" minWidth="128.0" prefWidth="128.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="32.0" minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="32.0" minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="32.0" minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="%ui.repositories.id">
+               <GridPane.margin>
+                  <Insets right="8.0" />
+               </GridPane.margin>
+            </Label>
+            <Label layoutX="115.0" layoutY="17.0" text="%ui.repositories.updated" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="8.0" />
+               </GridPane.margin>
+            </Label>
+            <Label layoutX="115.0" layoutY="47.0" text="%ui.repositories.runtimes" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets right="8.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="idField" editable="false" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" />
+            <TextField fx:id="updatedField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="8.0" />
+               </GridPane.margin></TextField>
+            <TextField fx:id="runtimeCountField" editable="false" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" />
+            <Button fx:id="updateButton" disable="true" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#onUpdateSelected" prefWidth="128.0" text="%ui.repositories.update" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+      <Region layoutX="18.0" layoutY="50.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" />
+   </children>
+</VBox>

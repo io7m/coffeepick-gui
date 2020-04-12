@@ -1,0 +1,88 @@
+.root
+{
+  -fx-font-size: 10pt;
+  -fx-font-family: "Sans";
+}
+
+.progress-bar > .track
+{
+  -fx-background-insets: 0 0 0 0;
+  -fx-background-radius: 0 0 0 0;
+  -fx-border-insets: 0 0 0 0;
+  -fx-padding: 0 0 0 0;
+}
+
+.progress-bar > .bar
+{
+  -fx-background-insets: 0 0 0 0;
+  -fx-background-radius: 0 0 0 0;
+  -fx-border-insets: 0 0 0 0;
+  -fx-padding: 0 0 0 0;
+}
+
+.button,
+.check-box,
+.choice-box,
+.color-picker,
+.color-picker.split-button,
+.combo-box-base,
+.container,
+.control-buttons-tab,
+.menu-button,
+.progress-bar,
+.radio-button,
+.text-area,
+.tab,
+.tab-down-button,
+.tab-header-area,
+.tab-pane,
+.toggle-button
+{
+  -fx-background-radius: 0 0 0 0;
+  -fx-border-radius: 0 0 0 0;
+}
+
+.tab .tab-label
+{
+  -fx-pref-width: 128;
+  -fx-alignment: center;
+}
+
+.tab:selected .tab-label
+{
+  -fx-alignment: center;
+}
+
+.cgTaskTextArea
+{
+  -fx-font-size: 9pt;
+  -fx-font-family: "Monospaced";
+}
+
+.cgRuntimeTable
+{
+  -fx-font-size: 9pt;
+  -fx-font-family: "Monospaced";
+}
+
+.cgVersionRangeLabel
+{
+  -fx-font-size: 9pt;
+  -fx-font-family: "Monospaced";
+}
+
+.cgDataField
+{
+  -fx-font-size: 9pt;
+  -fx-font-family: "Monospaced";
+}
+
+.cgRepositoryBrandingTitle
+{
+  -fx-font-size: 18pt;
+}
+
+.cgRepositoryBrandingSubtitle
+{
+  -fx-font-size: 12pt;
+}
