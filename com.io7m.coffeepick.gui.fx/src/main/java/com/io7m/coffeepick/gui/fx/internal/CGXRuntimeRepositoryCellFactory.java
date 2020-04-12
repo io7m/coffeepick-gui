@@ -35,38 +35,6 @@ public final class CGXRuntimeRepositoryCellFactory
   public ListCell<RuntimeRepositoryType> call(
     final ListView<RuntimeRepositoryType> param)
   {
-    return new RuntimeRepositoryTypeListCell();
-  }
-
-  private static final class RuntimeRepositoryTypeListCell
-    extends ListCell<RuntimeRepositoryType>
-  {
-    RuntimeRepositoryTypeListCell()
-    {
-
-    }
-
-    @Override
-    protected void updateItem(
-      final RuntimeRepositoryType item,
-      final boolean empty)
-    {
-      super.updateItem(item, empty);
-
-      this.setGraphic(null);
-      this.setText(null);
-      this.setTooltip(null);
-
-      if (empty || item == null) {
-        return;
-      }
-
-      this.setText(
-        String.format(
-          "%s - %s",
-          item.provider().name(),
-          item.description().branding().title())
-      );
-    }
+    return new CGXRuntimeRepositoryListCell();
   }
 }

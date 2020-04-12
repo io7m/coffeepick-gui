@@ -40,6 +40,10 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Function;
 
+/**
+ * The view controller for the search section.
+ */
+
 public final class CGXViewControllerSearch
   implements CGXViewControllerType
 {
@@ -48,28 +52,17 @@ public final class CGXViewControllerSearch
   private final SimpleObjectProperty<CGXRuntimeDescriptionFilterType> filter;
   private volatile CoffeePickSearch search;
 
-  @FXML
-  private CheckBox lowerBoundExclusive;
-  @FXML
-  private CheckBox upperBoundExclusive;
-  @FXML
-  private TextField platformField;
-  @FXML
-  private TextField archField;
-  @FXML
-  private TextField vmField;
-  @FXML
-  private TextField identifierField;
-  @FXML
-  private TextField repositoryField;
-  @FXML
-  private ComboBox<Optional<RuntimeConfiguration>> configurationField;
-  @FXML
-  private TextField versionLowerField;
-  @FXML
-  private TextField versionUpperField;
-  @FXML
-  private TextField versionRangeText;
+  @FXML private CheckBox lowerBoundExclusive;
+  @FXML private CheckBox upperBoundExclusive;
+  @FXML private TextField platformField;
+  @FXML private TextField archField;
+  @FXML private TextField vmField;
+  @FXML private TextField identifierField;
+  @FXML private TextField repositoryField;
+  @FXML private ComboBox<Optional<RuntimeConfiguration>> configurationField;
+  @FXML private TextField versionLowerField;
+  @FXML private TextField versionUpperField;
+  @FXML private TextField versionRangeText;
 
   public CGXViewControllerSearch(
     final CGXViewControllerFactoryType inControllers,

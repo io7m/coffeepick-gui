@@ -36,6 +36,10 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+/**
+ * The view controller for the preferences window.
+ */
+
 public final class CGXViewControllerPreferences implements CGXViewControllerType
 {
   private final CGXServiceDirectoryType services;

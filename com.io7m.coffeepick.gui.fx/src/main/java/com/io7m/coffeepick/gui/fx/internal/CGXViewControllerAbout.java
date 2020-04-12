@@ -26,6 +26,10 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * The view controller for the About window.
+ */
+
 public final class CGXViewControllerAbout implements CGXViewControllerType
 {
   private final CGXServiceDirectoryType services;

@@ -19,7 +19,15 @@ package com.io7m.coffeepick.gui.directories.api;
 import com.io7m.coffeepick.gui.services.api.CGXServiceType;
 import com.io7m.jade.api.ApplicationDirectoriesType;
 
+/**
+ * Access to application directories.
+ */
+
 public interface CGXDirectoriesType extends CGXServiceType
 {
+  /**
+   * @return The application directories
+   */
+
   ApplicationDirectoriesType directories();
 }

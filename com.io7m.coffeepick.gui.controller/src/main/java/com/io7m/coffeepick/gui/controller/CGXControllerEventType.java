@@ -16,6 +16,10 @@
 
 package com.io7m.coffeepick.gui.controller;
 
+/**
+ * The type of controller events.
+ */
+
 public interface CGXControllerEventType
 {
 

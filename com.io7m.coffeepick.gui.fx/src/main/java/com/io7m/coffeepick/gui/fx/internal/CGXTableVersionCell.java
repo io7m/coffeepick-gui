@@ -19,9 +19,17 @@ package com.io7m.coffeepick.gui.fx.internal;
 import com.io7m.coffeepick.runtime.RuntimeDescription;
 import javafx.scene.control.TableCell;
 
+/**
+ * A table cell that displays the version of a runtime.
+ */
+
 public final class CGXTableVersionCell
   extends TableCell<RuntimeDescription, RuntimeDescription>
 {
+  /**
+   * Construct a cell.
+   */
+
   public CGXTableVersionCell()
   {
 

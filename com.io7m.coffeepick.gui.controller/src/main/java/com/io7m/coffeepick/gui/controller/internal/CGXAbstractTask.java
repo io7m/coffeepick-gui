@@ -23,7 +23,12 @@ import com.io7m.coffeepick.gui.properties.PropertyType;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
+
+/**
+ * The abstract base class of tasks.
+ *
+ * @param <T> The type of returned values
+ */
 
 public abstract class CGXAbstractTask<T>
   implements CGXControllerTaskInternalType<T>
@@ -44,21 +49,6 @@ public abstract class CGXAbstractTask<T>
   public final CompletableFuture<T> future()
   {
     return this.future;
-  }
-
-  @Override
-  public final Throwable exception()
-  {
-    try {
-      if (this.future.isCompletedExceptionally()) {
-        this.future.get();
-      }
-      return null;
-    } catch (final ExecutionException e) {
-      return e.getCause();
-    } catch (final Throwable e) {
-      return e;
-    }
   }
 
   @Override

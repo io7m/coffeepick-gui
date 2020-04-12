@@ -21,6 +21,10 @@ import org.immutables.value.Value;
 
 import java.util.OptionalDouble;
 
+/**
+ * A task is running.
+ */
+
 @ImmutableStyleType
 @Value.Immutable
 public interface CGXControllerEventTaskRunningType

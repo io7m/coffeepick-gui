@@ -18,7 +18,17 @@ package com.io7m.coffeepick.gui.fx.internal;
 
 import com.io7m.coffeepick.runtime.RuntimeDescription;
 
+/**
+ * A filter for runtime descriptions.
+ */
+
 public interface CGXRuntimeDescriptionFilterType
 {
+  /**
+   * @param runtime The runtime
+   *
+   * @return {@code true} if the given runtime should appear in a listing
+   */
+
   boolean isAllowed(RuntimeDescription runtime);
 }

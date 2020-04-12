@@ -44,6 +44,10 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+/**
+ * The view controller for the runtime details window.
+ */
+
 public final class CGXViewControllerRuntime
   implements CGXViewControllerType
 {

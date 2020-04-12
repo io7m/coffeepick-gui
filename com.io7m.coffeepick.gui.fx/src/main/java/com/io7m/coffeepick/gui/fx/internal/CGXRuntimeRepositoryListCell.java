@@ -16,28 +16,28 @@
 
 package com.io7m.coffeepick.gui.fx.internal;
 
-import com.io7m.coffeepick.runtime.RuntimeDescription;
-import javafx.scene.control.TableCell;
+import com.io7m.coffeepick.repository.spi.RuntimeRepositoryType;
+import javafx.scene.control.ListCell;
 
 /**
- * A table cell that displays the provider of a runtime.
+ * A cell displaying a repository provider.
  */
 
-public final class CGXTableProviderCell
-  extends TableCell<RuntimeDescription, RuntimeDescription>
+public final class CGXRuntimeRepositoryListCell
+  extends ListCell<RuntimeRepositoryType>
 {
   /**
    * Construct a cell.
    */
 
-  public CGXTableProviderCell()
+  public CGXRuntimeRepositoryListCell()
   {
 
   }
 
   @Override
   protected void updateItem(
-    final RuntimeDescription item,
+    final RuntimeRepositoryType item,
     final boolean empty)
   {
     super.updateItem(item, empty);
@@ -50,6 +50,11 @@ public final class CGXTableProviderCell
       return;
     }
 
-    this.setText(item.repository().toString());
+    this.setText(
+      String.format(
+        "%s - %s",
+        item.provider().name(),
+        item.description().branding().title())
+    );
   }
 }

@@ -16,6 +16,10 @@
 
 package com.io7m.coffeepick.gui.controller;
 
+/**
+ * The type of events related to tasks.
+ */
+
 public interface CGXControllerEventTaskType extends CGXControllerEventType
 {
   String description();

@@ -16,7 +16,6 @@
 
 package com.io7m.coffeepick.gui.controller;
 
-import com.io7m.coffeepick.api.CoffeePickInventoryEventType;
 import com.io7m.coffeepick.gui.properties.PropertyReadableType;
 import com.io7m.coffeepick.gui.services.api.CGXServiceType;
 import com.io7m.coffeepick.repository.spi.RuntimeRepositoryType;
@@ -29,46 +28,122 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
+
+/**
+ * The main application controller.
+ */
 
 public interface CGXControllerType
   extends Closeable, CGXServiceType, CGXControllerDebugType
 {
+  /**
+   * @return A read-only view of the current catalog
+   */
+
   PropertyReadableType<Map<String, RuntimeDescription>> catalog();
+
+  /**
+   * @return A read-only view of the current inventory
+   */
 
   PropertyReadableType<Map<String, RuntimeDescription>> inventory();
 
+  /**
+   * @return A read-only view of the current repositories
+   */
+
   PropertyReadableType<List<RuntimeRepositoryType>> repositories();
 
-  PropertyReadableType<List<CGXControllerTaskType>> tasks();
+  /**
+   * @return A read-only view of the current tasks
+   */
 
-  CompletableFuture<?> repositoryUpdate(URI uri);
+  PropertyReadableType<List<CGXControllerTaskType<?>>> tasks();
 
-  CompletableFuture<?> repositoryUpdateAll();
+  /**
+   * Update the repository with the given URI.
+   *
+   * @param uri The URI
+   *
+   * @return The task in progress
+   */
 
-  CompletableFuture<?> catalogDownload(
-    Set<String> id
+  CGXControllerTaskType<?> repositoryUpdate(URI uri);
+
+  /**
+   * Update all repositories.
+   *
+   * @return The task in progress
+   */
+
+  CGXControllerTaskType<?> repositoryUpdateAll();
+
+  /**
+   * Download the given runtimes.
+   *
+   * @param ids The runtime IDs
+   *
+   * @return The task in progress
+   */
+
+  CGXControllerTaskType<?> catalogDownload(
+    Set<String> ids
   );
 
-  default CompletableFuture<?> catalogDownload(
+  /**
+   * Download the given runtime.
+   *
+   * @param id The runtime ID
+   *
+   * @return The task in progress
+   */
+
+  default CGXControllerTaskType<?> catalogDownload(
     final String id)
   {
     return this.catalogDownload(Set.of(id));
   }
 
+  /**
+   * @return An observable source of controller events
+   */
+
   Observable<CGXControllerEventType> events();
 
-  Observable<CoffeePickInventoryEventType> inventoryEvents();
+  /**
+   * @return A boolean property that indicates whether or not a task is running
+   */
 
   PropertyReadableType<Boolean> taskRunning();
 
+  /**
+   * Cancel the currently running task
+   */
+
   void cancel();
 
-  CompletableFuture<?> inventoryDelete(
+  /**
+   * Delete the given runtimes from the inventory.
+   *
+   * @param ids The runtimes
+   *
+   * @return The task in progress
+   */
+
+  CGXControllerTaskType<?> inventoryDelete(
     Set<String> ids
   );
 
-  CompletableFuture<?> inventoryUnpack(
+  /**
+   * Unpack the given runtimes from the inventory.
+   *
+   * @param ids  The runtimes
+   * @param path The directory that will contain the runtimes
+   *
+   * @return The task in progress
+   */
+
+  CGXControllerTaskType<?> inventoryUnpack(
     Set<String> ids,
     Path path
   );

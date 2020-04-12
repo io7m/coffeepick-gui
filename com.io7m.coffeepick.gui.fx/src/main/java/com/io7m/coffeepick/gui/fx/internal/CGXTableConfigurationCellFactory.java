@@ -22,6 +22,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.Tooltip;
 import javafx.util.Callback;
 
+/**
+ * A factory for configuration cells.
+ */
+
 public final class CGXTableConfigurationCellFactory
   implements Callback<
   TableColumn<RuntimeDescription, RuntimeDescription>,
@@ -29,6 +33,12 @@ public final class CGXTableConfigurationCellFactory
 {
   private final Tooltip tooltipJDK;
   private final Tooltip tooltipJRE;
+
+  /**
+   * Construct a cell factory.
+   *
+   * @param strings String resources
+   */
 
   public CGXTableConfigurationCellFactory(
     final CGXUIStringsType strings)
@@ -45,6 +55,10 @@ public final class CGXTableConfigurationCellFactory
   {
     return new CGXTableConfigurationCell();
   }
+
+  /**
+   * The cell.
+   */
 
   private final class CGXTableConfigurationCell
     extends TableCell<RuntimeDescription, RuntimeDescription>
@@ -72,12 +86,12 @@ public final class CGXTableConfigurationCellFactory
       switch (item.configuration()) {
         case JRE: {
           this.setTooltip(CGXTableConfigurationCellFactory.this.tooltipJRE);
-          this.setGraphic(CGXImages.imageOf("jre16.png"));
+          this.setGraphic(CGXImages.iconOf("jre16.png"));
           break;
         }
         case JDK: {
           this.setTooltip(CGXTableConfigurationCellFactory.this.tooltipJDK);
-          this.setGraphic(CGXImages.imageOf("jdk16.png"));
+          this.setGraphic(CGXImages.iconOf("jdk16.png"));
           break;
         }
       }

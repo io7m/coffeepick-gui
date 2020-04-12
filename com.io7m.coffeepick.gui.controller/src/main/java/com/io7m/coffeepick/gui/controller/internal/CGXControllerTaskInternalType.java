@@ -19,12 +19,13 @@ package com.io7m.coffeepick.gui.controller.internal;
 import com.io7m.coffeepick.gui.controller.CGXControllerTaskStatus;
 import com.io7m.coffeepick.gui.controller.CGXControllerTaskType;
 
-import java.util.concurrent.CompletableFuture;
+/**
+ * The type of internal controller tasks.
+ * @param <T> The type of returned values
+ */
 
-public interface CGXControllerTaskInternalType<T> extends CGXControllerTaskType
+public interface CGXControllerTaskInternalType<T> extends CGXControllerTaskType<T>
 {
-  CompletableFuture<T> future();
-
   T execute()
     throws Exception;
 

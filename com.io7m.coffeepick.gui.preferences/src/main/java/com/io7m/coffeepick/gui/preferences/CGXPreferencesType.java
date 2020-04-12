@@ -19,9 +19,17 @@ package com.io7m.coffeepick.gui.preferences;
 import com.io7m.immutables.styles.ImmutablesStyleType;
 import org.immutables.value.Value;
 
+/**
+ * Preferences values.
+ */
+
 @ImmutablesStyleType
 @Value.Immutable
 public interface CGXPreferencesType
 {
+  /**
+   * @return Debugging preferences
+   */
+
   CGXPreferencesDebug debug();
 }

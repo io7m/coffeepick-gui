@@ -22,6 +22,10 @@ import com.io7m.coffeepick.runtime.RuntimeDescription;
 
 import java.util.Objects;
 
+/**
+ * A runtime filter based on {@link CoffeePickSearch} parameters.
+ */
+
 public final class CGXRuntimeDescriptionSearchFilter
   implements CGXRuntimeDescriptionFilterType
 {
@@ -32,6 +36,14 @@ public final class CGXRuntimeDescriptionSearchFilter
   {
     this.search = Objects.requireNonNull(inSearch, "search");
   }
+
+  /**
+   * Create a new filter based on the given search parameters.
+   *
+   * @param inSearch The search parameters
+   *
+   * @return A new filter
+   */
 
   public static CGXRuntimeDescriptionFilterType of(
     final CoffeePickSearch inSearch)

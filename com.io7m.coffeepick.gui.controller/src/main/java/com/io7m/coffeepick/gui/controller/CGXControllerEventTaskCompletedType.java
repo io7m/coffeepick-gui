@@ -19,6 +19,10 @@ package com.io7m.coffeepick.gui.controller;
 import com.io7m.jlexing.core.ImmutableStyleType;
 import org.immutables.value.Value;
 
+/**
+ * A task was completed.
+ */
+
 @ImmutableStyleType
 @Value.Immutable
 public interface CGXControllerEventTaskCompletedType

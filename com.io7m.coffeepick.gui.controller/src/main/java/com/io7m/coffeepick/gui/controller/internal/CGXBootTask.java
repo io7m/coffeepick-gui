@@ -23,6 +23,10 @@ import com.io7m.jade.api.ApplicationDirectoriesType;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * The task that boots the CoffeePick client.
+ */
+
 public final class CGXBootTask extends CGXAbstractTask<CoffeePickClientType>
 {
   private final CGXControllerInternalType controller;
@@ -30,6 +34,16 @@ public final class CGXBootTask extends CGXAbstractTask<CoffeePickClientType>
   private final CoffeePickClientProviderType clients;
   private final CGXControllerStringsType strings;
   private final CompletableFuture<CoffeePickClientType> future;
+
+  /**
+   * Construct a task.
+   *
+   * @param inController             The controller
+   * @param inApplicationDirectories The application directories
+   * @param inClients                The clients
+   * @param inStrings                The string resources
+   * @param inFuture                 The task future
+   */
 
   public CGXBootTask(
     final CGXControllerInternalType inController,

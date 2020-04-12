@@ -16,9 +16,19 @@
 
 package com.io7m.coffeepick.gui.controller;
 
-import java.util.concurrent.CompletableFuture;
+/**
+ * Operations related to debugging.
+ */
 
 public interface CGXControllerDebugType
 {
-  CompletableFuture<?> debugFail(long time);
+  /**
+   * Start a new task that waits for {@code time} seconds and then fails.
+   *
+   * @param time The number of seconds to wait
+   *
+   * @return A task future
+   */
+
+  CGXControllerTaskType<?> debugFail(long time);
 }

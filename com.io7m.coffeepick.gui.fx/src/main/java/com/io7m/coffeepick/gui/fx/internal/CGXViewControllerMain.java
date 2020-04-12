@@ -16,7 +16,6 @@
 
 package com.io7m.coffeepick.gui.fx.internal;
 
-import com.io7m.coffeepick.api.CoffeePickInventoryEventType;
 import com.io7m.coffeepick.gui.controller.CGXControllerEventTaskCancelled;
 import com.io7m.coffeepick.gui.controller.CGXControllerEventTaskCompleted;
 import com.io7m.coffeepick.gui.controller.CGXControllerEventTaskFailed;
@@ -62,11 +61,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static com.io7m.coffeepick.gui.fx.internal.CGXViewControllerRuntimeContext.CONTEXT_CATALOG;
 import static com.io7m.coffeepick.gui.fx.internal.CGXViewControllerRuntimeContext.CONTEXT_INVENTORY;
+
+/**
+ * The view controller for the main window.
+ */
 
 public final class CGXViewControllerMain
   implements CGXViewControllerType
@@ -416,12 +418,6 @@ public final class CGXViewControllerMain
         .subscribe(this::onTaskCancelledEvent)
     );
 
-    this.subscriptions.add(
-      this.controller.inventoryEvents()
-        .sample(100L, TimeUnit.MILLISECONDS)
-        .subscribe(this::onInventoryEvent)
-    );
-
     this.catalogMatchLabel.setText("");
     this.inventoryMatchLabel.setText("");
 
@@ -470,12 +466,6 @@ public final class CGXViewControllerMain
           .collect(Collectors.toList())
       );
     });
-  }
-
-  private void onInventoryEvent(
-    final CoffeePickInventoryEventType event)
-  {
-    this.onInventoryMapChanged();
   }
 
   private void onInventoryMapChanged()

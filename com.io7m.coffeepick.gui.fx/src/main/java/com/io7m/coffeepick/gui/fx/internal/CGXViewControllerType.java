@@ -18,6 +18,10 @@ package com.io7m.coffeepick.gui.fx.internal;
 
 import javafx.fxml.Initializable;
 
+/**
+ * The type of view controllers.
+ */
+
 public interface CGXViewControllerType extends Initializable
 {
 

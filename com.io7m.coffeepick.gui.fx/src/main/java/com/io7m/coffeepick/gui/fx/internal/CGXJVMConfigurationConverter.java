@@ -23,10 +23,20 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * A string converter for JVM configuration names.
+ */
+
 public final class CGXJVMConfigurationConverter
   extends StringConverter<Optional<RuntimeConfiguration>>
 {
   private final String unspecified;
+
+  /**
+   * Construct a converter.
+   *
+   * @param inStrings String resources
+   */
 
   public CGXJVMConfigurationConverter(
     final CGXUIStringsType inStrings)

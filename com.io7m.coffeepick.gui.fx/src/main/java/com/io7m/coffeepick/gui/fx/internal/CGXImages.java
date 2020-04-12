@@ -20,6 +20,11 @@ import javafx.scene.image.ImageView;
 
 import java.io.FileNotFoundException;
 import java.io.UncheckedIOException;
+import java.util.Objects;
+
+/**
+ * Access to application image resources.
+ */
 
 public final class CGXImages
 {
@@ -28,8 +33,19 @@ public final class CGXImages
 
   }
 
-  public static ImageView imageOf(final String name)
+  /**
+   * Create a new image with the given name.
+   *
+   * @param name The name of the resource
+   *
+   * @return An image view
+   */
+
+  public static ImageView iconOf(
+    final String name)
   {
+    Objects.requireNonNull(name, "name");
+
     try {
       final var path =
         String.format("/com/io7m/coffeepick/gui/fx/icons/%s", name);

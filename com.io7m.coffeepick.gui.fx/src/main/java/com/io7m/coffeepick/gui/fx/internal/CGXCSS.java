@@ -16,6 +16,10 @@
 
 package com.io7m.coffeepick.gui.fx.internal;
 
+/**
+ * Access to application CSS stylesheets.
+ */
+
 public final class CGXCSS
 {
   private CGXCSS()

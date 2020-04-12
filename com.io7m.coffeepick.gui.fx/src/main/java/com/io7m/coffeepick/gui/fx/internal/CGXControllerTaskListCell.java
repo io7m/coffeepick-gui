@@ -20,9 +20,19 @@ import com.io7m.coffeepick.gui.controller.CGXControllerTaskType;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ProgressIndicator;
 
+import static javafx.scene.control.ProgressIndicator.INDETERMINATE_PROGRESS;
+
+/**
+ * Cells that appear in task lists.
+ */
+
 public final class CGXControllerTaskListCell
-  extends ListCell<CGXControllerTaskType>
+  extends ListCell<CGXControllerTaskType<?>>
 {
+  /**
+   * Construct a task list cell.
+   */
+
   public CGXControllerTaskListCell()
   {
 
@@ -30,7 +40,7 @@ public final class CGXControllerTaskListCell
 
   @Override
   protected void updateItem(
-    final CGXControllerTaskType item,
+    final CGXControllerTaskType<?> item,
     final boolean empty)
   {
     super.updateItem(item, empty);
@@ -42,24 +52,23 @@ public final class CGXControllerTaskListCell
 
     switch (item.status().value()) {
       case TASK_QUEUED: {
-        this.setGraphic(CGXImages.imageOf("taskQueued16.png"));
+        this.setGraphic(CGXImages.iconOf("taskQueued16.png"));
         break;
       }
       case TASK_SUCCEEDED: {
-        this.setGraphic(CGXImages.imageOf("taskSucceeded16.png"));
+        this.setGraphic(CGXImages.iconOf("taskSucceeded16.png"));
         break;
       }
       case TASK_FAILED: {
-        this.setGraphic(CGXImages.imageOf("taskFailed16.png"));
+        this.setGraphic(CGXImages.iconOf("taskFailed16.png"));
         break;
       }
       case TASK_CANCELLED: {
-        this.setGraphic(CGXImages.imageOf("taskCancelled16.png"));
+        this.setGraphic(CGXImages.iconOf("taskCancelled16.png"));
         break;
       }
       case TASK_RUNNING: {
-        final var progress =
-          new ProgressIndicator(ProgressIndicator.INDETERMINATE_PROGRESS);
+        final var progress = new ProgressIndicator(INDETERMINATE_PROGRESS);
         progress.setPrefWidth(16.0);
         progress.setPrefHeight(16.0);
         this.setGraphic(progress);

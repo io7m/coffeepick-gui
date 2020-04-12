@@ -23,12 +23,26 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Properties;
 
+/**
+ * Functions to serialize/deserialize preferences.
+ */
+
 public final class CGXPreferencesXML
 {
   private CGXPreferencesXML()
   {
 
   }
+
+  /**
+   * Load preferences from the given stream.
+   *
+   * @param stream The stream
+   *
+   * @return Loaded preferences
+   *
+   * @throws IOException On errors
+   */
 
   public static CGXPreferences loadFromXML(
     final InputStream stream)
@@ -56,6 +70,15 @@ public final class CGXPreferencesXML
     );
     return builder.build();
   }
+
+  /**
+   * Serialize preferences to the given stream.
+   *
+   * @param stream The stream
+   * @param values The preferences
+   *
+   * @throws IOException On errors
+   */
 
   public static void serializeToXML(
     final OutputStream stream,

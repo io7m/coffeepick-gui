@@ -18,9 +18,28 @@ package com.io7m.coffeepick.gui.fx.internal;
 
 import java.util.ResourceBundle;
 
+/**
+ * UI string resources.
+ */
+
 public interface CGXUIStringsType
 {
+  /**
+   * @return The resource bundle underlying the resources
+   */
+
   ResourceBundle resourceBundle();
+
+  /**
+   * Format a message.
+   *
+   * @param id   The message ID
+   * @param args The message arguments
+   *
+   * @return A formatted message
+   *
+   * @see java.text.MessageFormat
+   */
 
   String format(
     String id,

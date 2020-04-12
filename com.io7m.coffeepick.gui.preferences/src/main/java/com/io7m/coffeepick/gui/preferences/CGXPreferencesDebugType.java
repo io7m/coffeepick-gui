@@ -19,10 +19,18 @@ package com.io7m.coffeepick.gui.preferences;
 import com.io7m.immutables.styles.ImmutablesStyleType;
 import org.immutables.value.Value;
 
+/**
+ * Preferences values related to debugging.
+ */
+
 @ImmutablesStyleType
 @Value.Immutable
 public interface CGXPreferencesDebugType
 {
+  /**
+   * @return {@code true} if debugging elements should be visible in the UI
+   */
+
   @Value.Default
   default boolean isDebugEnabled()
   {

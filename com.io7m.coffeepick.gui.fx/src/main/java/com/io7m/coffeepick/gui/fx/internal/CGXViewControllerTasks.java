@@ -48,7 +48,12 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
+
+/**
+ * The view controller for the tasks window.
+ */
 
 public final class CGXViewControllerTasks
   implements CGXViewControllerType
@@ -59,14 +64,14 @@ public final class CGXViewControllerTasks
   private final CGXServiceDirectoryType services;
   private final CGXControllerType controller;
   private final CompositeDisposable subscriptions;
-  private final ObservableList<CGXControllerTaskType> taskListItems;
+  private final ObservableList<CGXControllerTaskType<?>> taskListItems;
 
   @FXML private Button cancelButton;
   @FXML private Label taskDescription;
   @FXML private ProgressBar progressMajor;
   @FXML private ProgressBar progressMinor;
   @FXML private TextArea taskDetails;
-  @FXML private ListView<CGXControllerTaskType> taskList;
+  @FXML private ListView<CGXControllerTaskType<?>> taskList;
 
   public CGXViewControllerTasks(
     final CGXViewControllerFactoryType inControllers,
@@ -158,7 +163,7 @@ public final class CGXViewControllerTasks
   }
 
   private void onTaskSelected(
-    final CGXControllerTaskType task)
+    final CGXControllerTaskType<?> task)
   {
     this.taskDetails.clear();
 
@@ -166,13 +171,13 @@ public final class CGXViewControllerTasks
       return;
     }
 
-    final Throwable taskException = task.exception();
-    if (taskException != null) {
+    final Optional<Throwable> taskExceptionOpt = task.exception();
+    taskExceptionOpt.ifPresent(throwable -> {
       final var stringWriter = new StringWriter();
       final var writer = new PrintWriter(stringWriter);
-      taskException.printStackTrace(writer);
+      throwable.printStackTrace(writer);
       this.taskDetails.setText(stringWriter.toString());
-    }
+    });
   }
 
   @FXML

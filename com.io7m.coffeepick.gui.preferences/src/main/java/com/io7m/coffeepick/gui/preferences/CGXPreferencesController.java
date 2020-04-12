@@ -37,6 +37,10 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 import static java.nio.file.StandardOpenOption.WRITE;
 
+/**
+ * The default preferences controller.
+ */
+
 public final class CGXPreferencesController
   implements CGXPreferencesControllerType
 {
@@ -76,6 +80,15 @@ public final class CGXPreferencesController
       .setDebug(debug)
       .build();
   }
+
+  /**
+   * Create a new preferences controller.
+   *
+   * @param file    The preferences file
+   * @param fileTmp The file used to store temporary preferences during saving
+   *
+   * @return A controller
+   */
 
   public static CGXPreferencesControllerType create(
     final Path file,

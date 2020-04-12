@@ -18,7 +18,6 @@ package com.io7m.coffeepick.gui.controller;
 
 import com.io7m.coffeepick.api.CoffeePickClientProviderType;
 import com.io7m.coffeepick.api.CoffeePickClientType;
-import com.io7m.coffeepick.api.CoffeePickInventoryEventType;
 import com.io7m.coffeepick.gui.controller.internal.CGXAbstractTask;
 import com.io7m.coffeepick.gui.controller.internal.CGXBootTask;
 import com.io7m.coffeepick.gui.controller.internal.CGXCatalogDownloadRuntimesTask;
@@ -57,6 +56,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Function;
 
+/**
+ * The default controller.
+ */
+
 public final class CGXController implements CGXControllerType
 {
   private static final Logger LOG =
@@ -68,7 +71,7 @@ public final class CGXController implements CGXControllerType
   private final ExecutorService executor;
   private final InternalAccess internal;
   private final PropertyType<Boolean> taskRunning;
-  private final PropertyType<List<CGXControllerTaskType>> tasks;
+  private final PropertyType<List<CGXControllerTaskType<?>>> tasks;
   private final PropertyType<List<RuntimeRepositoryType>> repositories;
   private final PropertyType<Map<String, RuntimeDescription>> catalog;
   private final PropertyType<Map<String, RuntimeDescription>> inventory;
@@ -132,7 +135,7 @@ public final class CGXController implements CGXControllerType
     return controller;
   }
 
-  private <T> CompletableFuture<T> submitTask(
+  private <T> CGXControllerTaskType<T> submitTask(
     final Function<CompletableFuture<T>, CGXAbstractTask<T>> taskFactory)
   {
     final var future = new CompletableFuture<T>();
@@ -204,12 +207,13 @@ public final class CGXController implements CGXControllerType
       }
     });
 
-    return future;
+    return task;
   }
 
   private void boot()
   {
     this.submitTask(this::createBootTask)
+      .future()
       .whenComplete((newClient, exception) -> this.client = newClient);
   }
 
@@ -237,13 +241,6 @@ public final class CGXController implements CGXControllerType
   }
 
   @Override
-  public Observable<CoffeePickInventoryEventType> inventoryEvents()
-  {
-    return this.client.events()
-      .ofType(CoffeePickInventoryEventType.class);
-  }
-
-  @Override
   public PropertyType<Boolean> taskRunning()
   {
     return this.taskRunning;
@@ -259,7 +256,7 @@ public final class CGXController implements CGXControllerType
   }
 
   @Override
-  public CompletableFuture<?> inventoryDelete(
+  public CGXControllerTaskType<?> inventoryDelete(
     final Set<String> ids)
   {
     return this.submitTask(
@@ -274,7 +271,7 @@ public final class CGXController implements CGXControllerType
   }
 
   @Override
-  public CompletableFuture<?> inventoryUnpack(
+  public CGXControllerTaskType<?> inventoryUnpack(
     final Set<String> ids,
     final Path path)
   {
@@ -291,7 +288,7 @@ public final class CGXController implements CGXControllerType
   }
 
   @Override
-  public CompletableFuture<?> repositoryUpdateAll()
+  public CGXControllerTaskType<?> repositoryUpdateAll()
   {
     return this.submitTask(
       (CompletableFuture<Void> future) ->
@@ -304,7 +301,7 @@ public final class CGXController implements CGXControllerType
   }
 
   @Override
-  public CompletableFuture<?> catalogDownload(
+  public CGXControllerTaskType<?> catalogDownload(
     final Set<String> ids)
   {
     return this.submitTask(
@@ -338,13 +335,13 @@ public final class CGXController implements CGXControllerType
   }
 
   @Override
-  public PropertyReadableType<List<CGXControllerTaskType>> tasks()
+  public PropertyReadableType<List<CGXControllerTaskType<?>>> tasks()
   {
     return this.tasks;
   }
 
   @Override
-  public CompletableFuture<?> repositoryUpdate(
+  public CGXControllerTaskType<?> repositoryUpdate(
     final URI uri)
   {
     return this.submitTask(
@@ -368,7 +365,7 @@ public final class CGXController implements CGXControllerType
   }
 
   @Override
-  public CompletableFuture<?> debugFail(final long time)
+  public CGXControllerTaskType<?> debugFail(final long time)
   {
     return this.submitTask(
       (CompletableFuture<Void> future) ->

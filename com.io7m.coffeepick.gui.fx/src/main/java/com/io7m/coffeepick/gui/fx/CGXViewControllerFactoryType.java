@@ -17,10 +17,29 @@
 package com.io7m.coffeepick.gui.fx;
 
 import javafx.fxml.FXMLLoader;
+import javafx.util.Callback;
+
+/**
+ * The type of view controller factories.
+ */
 
 public interface CGXViewControllerFactoryType
 {
+  /**
+   * Construct a new controller.
+   *
+   * @param clazz The controller class
+   *
+   * @return A new controller
+   *
+   * @see FXMLLoader#setControllerFactory(Callback)
+   */
+
   Object createController(Class<?> clazz);
+
+  /**
+   * @return A new FXML loader for the main application
+   */
 
   FXMLLoader createMainLoader();
 }

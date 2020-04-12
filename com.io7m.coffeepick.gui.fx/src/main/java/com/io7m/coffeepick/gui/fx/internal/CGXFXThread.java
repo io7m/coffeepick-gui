@@ -19,12 +19,20 @@ package com.io7m.coffeepick.gui.fx.internal;
 import com.io7m.jaffirm.core.Preconditions;
 import javafx.application.Platform;
 
+/**
+ * Functions for interacting with the JavaFX UI thread.
+ */
+
 public final class CGXFXThread
 {
   private CGXFXThread()
   {
 
   }
+
+  /**
+   * Throw an exception if the current thread is not the UI thread.
+   */
 
   public static void checkIsUIThread()
   {

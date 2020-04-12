@@ -39,6 +39,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * The view controller for the repository window.
+ */
+
 public final class CGXViewControllerRepositories
   implements CGXViewControllerType
 {
@@ -82,6 +86,7 @@ public final class CGXViewControllerRepositories
         .getSelectedItem();
 
     this.controller.repositoryUpdate(repository.description().id())
+      .future()
       .thenRun(() -> {
         Platform.runLater(() -> {
           this.onConfigureURIForRepository(

@@ -57,11 +57,23 @@ public final class CGXRuntimeDescriptionList
     return this.filter.isAllowed(item);
   }
 
+  /**
+   * Remove all items in the list, and add {@code newItems} to it.
+   *
+   * @param newItems The new items
+   */
+
   public void setItems(
     final List<RuntimeDescription> newItems)
   {
     this.items.setAll(newItems);
   }
+
+  /**
+   * Set the list filter.
+   *
+   * @param newFilter The filter
+   */
 
   public void setFilter(
     final CGXRuntimeDescriptionFilterType newFilter)
@@ -69,6 +81,10 @@ public final class CGXRuntimeDescriptionList
     this.filter = Objects.requireNonNull(newFilter, "filter");
     this.items.setAll(List.copyOf(this.items));
   }
+
+  /**
+   * @return A filtered view of the list items
+   */
 
   public ObservableList<RuntimeDescription> items()
   {

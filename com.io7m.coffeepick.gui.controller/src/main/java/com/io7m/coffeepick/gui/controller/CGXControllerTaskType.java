@@ -18,11 +18,61 @@ package com.io7m.coffeepick.gui.controller;
 
 import com.io7m.coffeepick.gui.properties.PropertyReadableType;
 
-public interface CGXControllerTaskType
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+/**
+ * A task.
+ *
+ * @param <T> The type of returned values
+ */
+
+public interface CGXControllerTaskType<T>
 {
+  /**
+   * @return The task future
+   */
+
+  CompletableFuture<T> future();
+
+  /**
+   * @return The description of the task
+   */
+
   String description();
+
+  /**
+   * @return The current task status
+   */
 
   PropertyReadableType<CGXControllerTaskStatus> status();
 
-  Throwable exception();
+  /**
+   * Cancel the task in progress.
+   */
+
+  default void cancel()
+  {
+    this.future().cancel(true);
+  }
+
+  /**
+   * @return The exception, if the task has failed
+   */
+
+  default Optional<Throwable> exception()
+  {
+    try {
+      final var future = this.future();
+      if (future.isCompletedExceptionally()) {
+        future.get();
+      }
+      return Optional.empty();
+    } catch (final ExecutionException e) {
+      return Optional.ofNullable(e.getCause());
+    } catch (final Throwable e) {
+      return Optional.of(e);
+    }
+  }
 }
