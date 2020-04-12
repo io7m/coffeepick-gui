@@ -16,6 +16,7 @@
 
 package com.io7m.coffeepick.gui.fx.internal;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.FileNotFoundException;
@@ -58,5 +59,19 @@ public final class CGXImages
     } catch (final FileNotFoundException e) {
       throw new UncheckedIOException(e);
     }
+  }
+
+  /**
+   * Create a new image with the given name.
+   *
+   * @param name The name of the resource
+   *
+   * @return An image
+   */
+
+  public static Image iconImageOf(
+    final String name)
+  {
+    return iconOf(name).getImage();
   }
 }

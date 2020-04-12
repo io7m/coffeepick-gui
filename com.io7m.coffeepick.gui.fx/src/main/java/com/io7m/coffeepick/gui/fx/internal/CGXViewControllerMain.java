@@ -50,6 +50,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -87,6 +88,7 @@ public final class CGXViewControllerMain
   @FXML private Button inventoryUnpackButton;
   @FXML private CGXViewControllerSearch catalogSearchController;
   @FXML private CGXViewControllerSearch inventorySearchController;
+  @FXML private ImageView progressIcon;
   @FXML private Label catalogMatchLabel;
   @FXML private Label inventoryMatchLabel;
   @FXML private Label progressLabel;
@@ -636,6 +638,7 @@ public final class CGXViewControllerMain
     Platform.runLater(() -> {
       this.progressLabel.setText("");
       this.progressIndicator.setVisible(false);
+      this.progressIcon.setVisible(false);
     });
   }
 
@@ -645,6 +648,7 @@ public final class CGXViewControllerMain
     Platform.runLater(() -> {
       this.progressLabel.setText("");
       this.progressIndicator.setVisible(false);
+      this.progressIcon.setVisible(false);
     });
   }
 
@@ -654,6 +658,7 @@ public final class CGXViewControllerMain
     Platform.runLater(() -> {
       this.progressLabel.setText(event.description());
       this.progressIndicator.setVisible(true);
+      this.progressIcon.setVisible(false);
     });
   }
 
@@ -663,6 +668,8 @@ public final class CGXViewControllerMain
     Platform.runLater(() -> {
       this.progressLabel.setText(event.description());
       this.progressIndicator.setVisible(false);
+      this.progressIcon.setImage(CGXImages.iconImageOf("taskFailed16.png"));
+      this.progressIcon.setVisible(true);
     });
   }
 
@@ -672,6 +679,7 @@ public final class CGXViewControllerMain
     Platform.runLater(() -> {
       this.progressLabel.setText(event.description());
       this.progressIndicator.setVisible(true);
+      this.progressIcon.setVisible(false);
     });
   }
 }
