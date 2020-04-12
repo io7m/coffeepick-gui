@@ -20,6 +20,7 @@ import com.io7m.coffeepick.gui.controller.CGXControllerEventTaskRunning;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -43,6 +44,10 @@ public final class CGXDebugFailTask extends CGXAbstractTask<Void>
     throws Exception
   {
     for (long index = 0L; index < this.seconds; ++index) {
+      if (this.future().isCancelled()) {
+        throw new CancellationException();
+      }
+
       try {
         final var progess = (double) index / (double) this.seconds;
         this.controller.publishEvent(

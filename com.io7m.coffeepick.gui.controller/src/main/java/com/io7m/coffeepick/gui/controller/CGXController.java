@@ -24,7 +24,6 @@ import com.io7m.coffeepick.gui.controller.internal.CGXCatalogDownloadRuntimesTas
 import com.io7m.coffeepick.gui.controller.internal.CGXControllerInternalType;
 import com.io7m.coffeepick.gui.controller.internal.CGXControllerStrings;
 import com.io7m.coffeepick.gui.controller.internal.CGXControllerStringsType;
-import com.io7m.coffeepick.gui.controller.internal.CGXControllerTaskInternalType;
 import com.io7m.coffeepick.gui.controller.internal.CGXDebugFailTask;
 import com.io7m.coffeepick.gui.controller.internal.CGXInventoryDeleteTask;
 import com.io7m.coffeepick.gui.controller.internal.CGXInventoryUnpackTask;
@@ -37,6 +36,7 @@ import com.io7m.coffeepick.repository.spi.RuntimeRepositoryType;
 import com.io7m.coffeepick.runtime.RuntimeDescription;
 import com.io7m.jade.api.ApplicationDirectoriesType;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.subjects.BehaviorSubject;
 import io.reactivex.rxjava3.subjects.Subject;
 import org.slf4j.Logger;
@@ -55,6 +55,11 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Function;
+
+import static com.io7m.coffeepick.gui.controller.CGXControllerTaskStatus.TASK_CANCELLED;
+import static com.io7m.coffeepick.gui.controller.CGXControllerTaskStatus.TASK_FAILED;
+import static com.io7m.coffeepick.gui.controller.CGXControllerTaskStatus.TASK_RUNNING;
+import static com.io7m.coffeepick.gui.controller.CGXControllerTaskStatus.TASK_SUCCEEDED;
 
 /**
  * The default controller.
@@ -76,7 +81,7 @@ public final class CGXController implements CGXControllerType
   private final PropertyType<Map<String, RuntimeDescription>> catalog;
   private final PropertyType<Map<String, RuntimeDescription>> inventory;
   private final Subject<CGXControllerEventType> events;
-  private volatile CGXControllerTaskInternalType<?> taskRunningNow;
+  private final CompositeDisposable taskSubscriptions;
   private volatile CoffeePickClientType client;
 
   public CGXController(
@@ -105,6 +110,22 @@ public final class CGXController implements CGXControllerType
     this.inventory = Property.of(Map.of());
     this.repositories = Property.of(List.of());
     this.tasks = Property.of(List.of());
+    this.taskSubscriptions = new CompositeDisposable();
+    this.tasks.observable().subscribe(this::onTaskListUpdated);
+  }
+
+  private void onTaskListUpdated(
+    final List<CGXControllerTaskType<?>> currentTasks)
+  {
+    if (currentTasks.isEmpty()) {
+      this.taskRunning.setValue(Boolean.FALSE);
+      return;
+    }
+
+    final var lastTask = currentTasks.get(currentTasks.size() - 1);
+    final var lastTaskStatus = lastTask.status().value();
+    this.taskRunning.setValue(
+      Boolean.valueOf(lastTaskStatus == TASK_RUNNING));
   }
 
   public static CGXControllerType create(
@@ -140,18 +161,37 @@ public final class CGXController implements CGXControllerType
   {
     final var future = new CompletableFuture<T>();
     final var task = taskFactory.apply(future);
+
+    /*
+     * Subscribe to the task status in order to publish task list status
+     * updates.
+     */
+
+    this.taskSubscriptions.add(
+      task.status().observable()
+        .subscribe(status -> {
+          LOG.debug("task {} status changed", task);
+          this.tasks.setMap(Function.identity());
+        })
+    );
+
+    /*
+     * Add the task to the queue.
+     */
+
     this.tasks.setMap(current -> {
       final var newTasks = new ArrayList<>(current);
       newTasks.add(task);
       return newTasks;
     });
 
+    /*
+     * Execute the task!
+     */
+
     this.executor.execute(() -> {
       try {
-        this.taskRunning.setValue(Boolean.TRUE);
-        this.taskRunningNow = task;
-        task.setStatus(CGXControllerTaskStatus.TASK_RUNNING);
-        this.tasks.setMap(Function.identity());
+        task.setStatus(TASK_RUNNING);
 
         this.events.onNext(
           CGXControllerEventTaskStarted.builder()
@@ -169,8 +209,7 @@ public final class CGXController implements CGXControllerType
 
         LOG.debug("task execute: {}", task);
         final T result = task.execute();
-        task.setStatus(CGXControllerTaskStatus.TASK_SUCCEEDED);
-        this.tasks.setMap(Function.identity());
+        task.setStatus(TASK_SUCCEEDED);
 
         this.events.onNext(
           CGXControllerEventTaskCompleted.builder()
@@ -180,8 +219,7 @@ public final class CGXController implements CGXControllerType
 
         future.complete(result);
       } catch (final CancellationException e) {
-        task.setStatus(CGXControllerTaskStatus.TASK_CANCELLED);
-        this.tasks.setMap(Function.identity());
+        task.setStatus(TASK_CANCELLED);
 
         this.events.onNext(
           CGXControllerEventTaskCancelled.builder()
@@ -190,20 +228,14 @@ public final class CGXController implements CGXControllerType
         );
       } catch (final Throwable e) {
         LOG.error("task exception: ", e);
-        if (!future.isCompletedExceptionally()) {
-          future.completeExceptionally(e);
-          task.setStatus(CGXControllerTaskStatus.TASK_FAILED);
-          this.tasks.setMap(Function.identity());
+        future.completeExceptionally(e);
+        task.setStatus(TASK_FAILED);
 
-          this.events.onNext(
-            CGXControllerEventTaskFailed.builder()
-              .setDescription(this.strings.taskFailed(task.description()))
-              .build()
-          );
-        }
-      } finally {
-        this.taskRunningNow = null;
-        this.taskRunning.setValue(Boolean.FALSE);
+        this.events.onNext(
+          CGXControllerEventTaskFailed.builder()
+            .setDescription(this.strings.taskFailed(task.description()))
+            .build()
+        );
       }
     });
 
@@ -249,9 +281,10 @@ public final class CGXController implements CGXControllerType
   @Override
   public void cancel()
   {
-    final var currentTask = this.taskRunningNow;
-    if (currentTask != null) {
-      currentTask.future().cancel(true);
+    final List<CGXControllerTaskType<?>> tasksNow = this.tasks.value();
+    if (!tasksNow.isEmpty()) {
+      final var taskNow = tasksNow.get(tasksNow.size() - 1);
+      taskNow.cancel();
     }
   }
 
