@@ -128,8 +128,10 @@ public final class CGXViewControllerRepositories
       this.controller.repositories()
         .observable()
         .subscribe(newRepositories -> {
-          this.repositories.setAll(newRepositories);
-          this.repositoryComboBox.getSelectionModel().select(0);
+          Platform.runLater(() -> {
+            this.repositories.setAll(newRepositories);
+            this.repositoryComboBox.getSelectionModel().select(0);
+          });
         })
     );
   }
