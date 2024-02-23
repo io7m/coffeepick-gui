@@ -34,11 +34,11 @@
   </modules>
 
   <properties>
-    <com.codacy.id>fad9cc3608ca406eb6ba8c95128d6a9d</com.codacy.id>
     <com.io7m.coffeepick.version>0.2.1</com.io7m.coffeepick.version>
     <com.io7m.jade.version>1.0.2</com.io7m.jade.version>
     <com.io7m.jwheatsheaf.version>3.0.0</com.io7m.jwheatsheaf.version>
     <io7m.api.previousVersion>0.2.0-SNAPSHOT</io7m.api.previousVersion>
+    <io7m.java.targetJavaVersion>21</io7m.java.targetJavaVersion>
     <javafx.version>21.0.1</javafx.version>
     <org.immutables.version>2.10.0</org.immutables.version>
   </properties>
